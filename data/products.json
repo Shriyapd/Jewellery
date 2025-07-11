@@ -1,0 +1,10 @@
+[
+  {
+    "id": "101",
+    "name": "Amethyst Crystal Necklace",
+    "price": 999,
+    "stock": 12,
+    "moods": ["calm", "focus"],
+    "occasions": ["birthday", "self-care"]
+  }
+]
