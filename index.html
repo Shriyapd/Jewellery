@@ -187,6 +187,33 @@
   loadwidget("init",{}),
   loadwidget("load_widget","Widget Loading...!");
 </script>
+<script>
+  async function fetchProducts() {
+    const res = await fetch('https://shriyapd.github.io/Jewellery/data/products.json');
+    return await res.json();
+  }
+
+  async function checkAvailabilityById(productId) {
+    const products = await fetchProducts();
+    const item = products.find(p => p.id === productId);
+    return item
+      ? (item.stock > 0
+          ? `"${item.name}" is in stock at ₹${item.price}.`
+          : `"${item.name}" is currently out of stock.`)
+      : "Product not found.";
+  }
+
+  async function recommendByMood(input) {
+    const products = await fetchProducts();
+    input = input.toLowerCase();
+    const matches = products.filter(p =>
+      p.moods.some(m => input.includes(m)) || p.occasions.some(o => input.includes(o))
+    );
+    return matches.length
+      ? matches.map(p => `💎 ${p.name} (₹${p.price})`).join('\n')
+      : "No recommendations found.";
+  }
+</script>
 
 </body>
 </html>
